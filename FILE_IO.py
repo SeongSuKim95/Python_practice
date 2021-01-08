@@ -2,6 +2,13 @@
 #read(): 파일의 모든 내용을 읽음
 f = open("input.txt","r")
 
+# a= []
+# for i in range(10):
+#     line = []
+#     for j in range(10):
+#         line.append(10*i+j)
+#     a.append(line)
+
 print(f.read())
 #f.seek(9) # 9 byte의 위치부터 file을 읽음 한글은 글자당 3byte alpha,기호 1byte
 #readlines(): 전체 내용을 한 번에 리스트에 담는 함수
