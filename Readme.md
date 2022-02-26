@@ -25,6 +25,9 @@
             "request": "launch",
             "module": "vit_explain",
             "cwd": "${file}",
+            "args": [
+                "--image_path=./examples/input.png",
+            ]
         }
     ]
     }
@@ -35,8 +38,7 @@
         - 보통 debugging 파일의 경로를 설정해주면 되는데, import되는 파일에 따라서 적절하게 잡아주면 될듯
     -  module : debugging할 파일의 이름
         - 경로를 적는거라, 앞서 설정한 cwd에 맞춰서 적어주면 됨
-    
-
+    -  args : argument를 list 형식으로 적어주면 된다.
 ## 2. Concept
 
 
