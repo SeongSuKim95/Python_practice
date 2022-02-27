@@ -1,6 +1,10 @@
 # Repository for practice some python skills
 
-
+# Python
+ - https://uni2237.tistory.com/56
+ - https://velog.io/@koyo/python-docs-6
+ - https://velog.io/@gndan4/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B4%80%EB%A0%A8-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%A3%BC%EC%9A%94-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC
+ - https://seongbindb.tistory.com/54
 ## 1. Vscode
 -------------------
 ### About VsCode debugging
