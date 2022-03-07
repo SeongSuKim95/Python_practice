@@ -1,3 +1,5 @@
+# itertyo
+
 from itertools import permutations, combinations, product, combinations_with_replacement
 
 data = ['A','B','C']
