@@ -1,3 +1,5 @@
+# Append, Sort, Reverse, insert, count, remove 
+
 #Append
 num = [1,2,3,4]
 num.append(5)
@@ -64,6 +66,14 @@ print(Os[::-1])
 for item in reversed(Os):
     print(item)
 
+#List comprehension
+
+# N,M zero map initialize
+m = 10
+n = 9
+array = [[0] * m for _ in range(n)]
+
+
 #Sort
 #list.sort(key=...,reverse=...)
 #sorted(list,key=...,reverse=...)
@@ -126,3 +136,12 @@ print(num4)
 num5 =[1,2,3,4,5]
 del num5[:]
 print(num5)
+
+# List의 특정 값 없애기
+
+a = [1,2,3,4,5,5,5]
+
+remove_set = {3,5}
+
+result = [ i for i in a if i not in remove_set]
+print(result)

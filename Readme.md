@@ -1,6 +1,7 @@
 # Repository for practice some python skills
 - https://seongbindb.tistory.com/54
 # Python
+ - (*args,**kwargs) https://brunch.co.kr/@princox/180
  - list
     - list.extend 와 list.append의 차이
  - copy
