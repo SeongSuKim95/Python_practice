@@ -96,3 +96,9 @@ def solution(numbers):
     numbers_str.sort(key=lambda num : num *3 ,reverse=True)
     
     return str(int(''.join(numbers_str)))
+
+
+# collections counter deque https://kingofbackend.tistory.com/97
+# 배열 원소 곱 구하기 : https://shoark7.github.io/programming/algorithm/3ways-to-get-multiplication-in-a-list-in-python
+# 람다 표현식 : https://codermun-log.tistory.com/66
+# 딕셔너리 key, value swap : https://bio-info.tistory.com/50
