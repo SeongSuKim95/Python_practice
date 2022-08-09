@@ -43,3 +43,5 @@ def solution(dartResult):
 
     answer = sum(dart)
     return answer
+
+# 규칙 찾기 (정규식 표현)
