@@ -60,25 +60,50 @@ from collections import deque
          
 #     return cnt
 
-def solution(people, limit):
-    result = 0
-    deque_people = deque(sorted(people))
+# def solution(people, limit):
+#     result = 0
+#     deque_people = deque(sorted(people))
 
-    while deque_people:
-        print(deque_people)
-        left = deque_people.popleft()
-        if not deque_people:
-            return result + 1 # 마지막 사람
-        right = deque_people.pop()
-        if left + right > limit:
-            deque_people.appendleft(left)
-        result += 1
-    return result
+#     while deque_people:
+#         print(deque_people)
+#         left = deque_people.popleft()
+#         if not deque_people:
+#             return result + 1 # 마지막 사람
+#         right = deque_people.pop()
+#         if left + right > limit:
+#             deque_people.appendleft(left)
+#         result += 1
+#     return result
 
 
-people = [70,50,80,50]
-limit = 100
+# people = [70,50,80,50]
+# limit = 100
 
-print(solution(people,limit))
+# print(solution(people,limit))
 
 # queue : popleft, pop, appendleft
+
+def solution(n, computers):
+    answer = 0
+    visited = [False for i in range(n)]
+    for com in range(n):
+        if visited[com] == False:
+            BFS(n, computers, com, visited)
+            answer += 1
+    return answer
+
+def BFS(n, computers, com, visited):
+    visited[com] = True
+    queue = []
+    queue.append(com)
+    while len(queue) != 0:
+        com = queue.pop(0)
+        visited[com] = True
+        for connect in range(n):
+            if connect != com and computers[com][connect] == 1:
+                if visited[connect] == False:
+                    queue.append(connect)
+
+n = 3
+computers = [[1, 1, 0], [1, 1, 0], [0, 0, 1]]
+print(solution(n,computers))
