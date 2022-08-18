@@ -78,7 +78,7 @@ def solution(begin, target, words):
 
 
 # 내코드 
-
+# 
 from collections import deque
 answer = []
 def dfs(begin,data,target,depth,words,visited):

@@ -83,27 +83,40 @@ from collections import deque
 
 # queue : popleft, pop, appendleft
 
-def solution(n, computers):
-    answer = 0
-    visited = [False for i in range(n)]
-    for com in range(n):
-        if visited[com] == False:
-            BFS(n, computers, com, visited)
-            answer += 1
-    return answer
+# def solution(n, computers):
+#     answer = 0
+#     visited = [False for i in range(n)]
+#     for com in range(n):
+#         if visited[com] == False:
+#             BFS(n, computers, com, visited)
+#             answer += 1
+#     return answer
 
-def BFS(n, computers, com, visited):
-    visited[com] = True
-    queue = []
-    queue.append(com)
-    while len(queue) != 0:
-        com = queue.pop(0)
-        visited[com] = True
-        for connect in range(n):
-            if connect != com and computers[com][connect] == 1:
-                if visited[connect] == False:
-                    queue.append(connect)
+# def BFS(n, computers, com, visited):
+#     visited[com] = True
+#     queue = []
+#     queue.append(com)
+#     while len(queue) != 0:
+#         com = queue.pop(0)
+#         visited[com] = True
+#         for connect in range(n):
+#             if connect != com and computers[com][connect] == 1:
+#                 if visited[connect] == False:
+#                     queue.append(connect)
 
-n = 3
-computers = [[1, 1, 0], [1, 1, 0], [0, 0, 1]]
-print(solution(n,computers))
+# n = 3
+# computers = [[1, 1, 0], [1, 1, 0], [0, 0, 1]]
+# print(solution(n,computers))
+
+
+def binary_search(array,target,start,end):
+
+    if start > end :
+        return None
+    mid = (start+end)//2
+    if array[mid] == target:
+        return mid
+    elif array[mid] < target:
+        return binary_search(array,target,mid+1,end)
+    elif array[mid] > target:
+        return binary_search(array,target,start,mid-1)
