@@ -37,6 +37,8 @@ def DFS(n, computers, com, visited):
             if visited[connect] == False:
                 DFS(n, computers, connect, visited)
 
+# DFS든 BFS든 재귀, loop를 마치고 돌아온다면 하나의 묶음을 탐색한 것이므로 answer에 1을 더해준다.
+# 이를 위해 for com in range(n)과 같이 모든 컴퓨터에 대해서 loop를 돌아야 한다.
 
 # 내 코드
 

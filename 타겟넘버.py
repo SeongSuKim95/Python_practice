@@ -74,5 +74,43 @@ def solution(numbers,target):
         idx +=1
     return answer[-1].count(target)
 
+
+
 ## 같은것을 수행하는 코드임에도 너무.. 다르다..
 ## leaves = [0]이라고 선언후, tmp라는 list에 update를 한 후 leaves로 교체하면 된다
+
+# 2차 내코드
+from collections import deque
+
+def solution(numbers,target):
+    answer = []
+    queue = deque([0])
+    idx = 0
+    while queue:
+        if idx == len(numbers):
+            break
+        for i in range(len(queue)):
+            cur = queue.popleft()
+            queue.append(cur+numbers[idx])
+            queue.append(cur-numbers[idx])
+        idx +=1
+    
+    return queue.count(target)
+
+# DFS 풀이
+answer = 0
+def dfs(numbers,target,sum,idx):
+    global answer
+    if idx == len(numbers):
+        if sum == target:
+            answer +=1
+    else:
+        cur = numbers[idx]
+        dfs(numbers,target,sum+cur,idx+1)
+        dfs(numbers,target,sum-cur,idx+1)
+        
+def solution(numbers,target):
+    idx = 0
+    dfs(numbers,target,0,idx)
+    
+    return answer

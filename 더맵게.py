@@ -31,3 +31,15 @@ def solution(scoville,K):
             return cnt
         elif len(scoville) == 1 and scoville[0] < K: # 마지막까지 더 했는데 최상단 node가 K보다 작으면 return -1
             return -1
+
+# 2차 코드
+
+def solution(scoville,K):
+    answer = 0
+    heapq.heapify(scoville)
+    while scoville[0] < K:
+        if len(scoville) == 1:
+            return -1
+        heapq.heappush(scoville,heapq.heappop(scoville) + 2*heapq.heappop(scoville))
+        answer += 1
+    return answer
