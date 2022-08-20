@@ -1,19 +1,20 @@
 
+from itertools import combinations
 
-test = { 'a' : 1, 'b': {'c' : 2,'d': {'e':3} }}
+def solution(factory):
+    answer = []
+    item = {i for i in range(0,len(factory[1]))}
+    for i in range(1,len(factory[1])+1):
+        for j in combinations(item,i):
+            fact = {p: False for p in range(len(factory))}
+            for index in j:
+                for idx,k in enumerate(factory):
+                    if k[index]:
+                        fact[idx] = True
+            if sum(list(fact.values())) == len(factory):
+                return i 
 
 
-result = []
-for key, value in test.items():
-    if isinstance(value,int):
-        result.append(key)
-        result.append(value)
-    else :
-        temp = value
-        while not isinstance(temp,int):
-            result.append(key)
-            for nest_key,nest_value in temp.items():
-                temp = nest_value
-        result.append(temp)
-    result.append('_')
-print(result)
+factory = [[1,1,0,0,0,0,0,0],[0,0,0,0,1,1,0,0],[0,0,1,1,0,0,1,0],[0,0,0,0,0,0,0,1]]
+
+print(solution(factory))
