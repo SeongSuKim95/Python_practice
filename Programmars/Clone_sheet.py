@@ -121,7 +121,7 @@ def binary_search(array,target,start,end):
     elif array[mid] > target:
         return binary_search(array,target,start,mid-1)
 
-### NVAT7
+##
 
 from itertools import combinations
 
