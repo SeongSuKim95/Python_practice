@@ -109,32 +109,69 @@ from collections import deque
 # print(solution(n,computers))
 
 
-def binary_search(array,target,start,end):
+# def binary_search(array,target,start,end):
 
-    if start > end :
-        return None
-    mid = (start+end)//2
-    if array[mid] == target:
-        return mid
-    elif array[mid] < target:
-        return binary_search(array,target,mid+1,end)
-    elif array[mid] > target:
-        return binary_search(array,target,start,mid-1)
+#     if start > end :
+#         return None
+#     mid = (start+end)//2
+#     if array[mid] == target:
+#         return mid
+#     elif array[mid] < target:
+#         return binary_search(array,target,mid+1,end)
+#     elif array[mid] > target:
+#         return binary_search(array,target,start,mid-1)
 
-##
+# ##
 
-from itertools import combinations
+# from itertools import combinations
 
-def solution(factory):
-    answer = []
-    item = {i for i in range(0,len(factory[1]))}
-    for i in range(1,len(factory[1])+1):
-        for j in combinations(item,i):
-            fact = {p: False for p in range(len(factory))}
-            for index in j:
-                for idx,k in enumerate(factory):
-                    if k[index]:
-                        fact[idx] = True
-            if sum(list(fact.values())) == len(factory):
-                return i 
+# def solution(factory):
+#     answer = []
+#     item = {i for i in range(0,len(factory[1]))}
+#     for i in range(1,len(factory[1])+1):
+#         for j in combinations(item,i):
+#             fact = {p: False for p in range(len(factory))}
+#             for index in j:
+#                 for idx,k in enumerate(factory):
+#                     if k[index]:
+#                         fact[idx] = True
+#             if sum(list(fact.values())) == len(factory):
+#                 return i 
 
+
+# input_string = "This is an example"
+# lower_string  = input_string.lower()
+# for i in lower_string:
+#     if i in ["a","e","i","o","u"]:
+#         lower_string.replace(i,"")
+# print(lower_string)
+
+
+underscore_str = "__alreadyCamel__but__NOTYET"
+camelcase_str = underscore_str.strip("_").split("_")
+
+if len(camelcase_str) == 1:
+    print(camelcase_str[0])
+else:
+    answer = ''
+    for idx, i in enumerate(camelcase_str):
+        if i :
+            i = i.lower()
+            if idx != 0 :
+                answer += i.replace(i[0],i[0].upper())   
+            else:
+                answer += i
+    print(answer)
+
+
+# Capitalize
+
+num_dict = {"0" : "zero ", "1": "one ", "2" : "two ", "3": "three ", "4": "four ", "5": "five ", "6": "six ", "7": "seven ", "8" : "eight ", "9" : "nine "}
+answer = ""
+input_string = "Zip Code: 19104"
+
+for i in input_string:
+    if 48<= ord(i) <= 57 : 
+        answer += num_dict[i]   
+
+print(answer.rstrip())
