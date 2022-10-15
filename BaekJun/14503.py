@@ -1,43 +1,53 @@
-import sys; input = sys.stdin.readline
+n, m = map(int,input().split()) # N, M을 입력 받음
 
-N,M = map(int,input().split())
-r,c,cur_dir = map(int,input().split())
+d =[[0] * m for _ in range(n)] # 청소 여부를 list로 생성
+x, y, direction = map(int,input().split()) # x, y, direction를 입력 받음
+d[x][y] = 1 # 현재 위치 청소 (0->1)
 
-board = [list(map(int,input().split())) for _ in range(N)]
+array = [] # 빈 칸, 벽을 입력 받음
+for i in range(n): # n 개의 rows에 대해서 각 row의 입력을 받음
+    array.append(list(map(int,input().split()))) 
 
-# 북, 서, 남, 동
-dir_list = {0:[-1,0],1:[0,-1],2:[1,0],3:[0,1]}
+dx = [-1,0,1,0]
+dy = [0,1,0,-1]
 
-board[r][c] = 2
-cnt = 1
+# 0: 위쪽 이동, 1: 오른쪽 이동, 2: 아래 이동, 3: 왼쪽 이동
+
+def turn_left(): # 왼쪽으로 트는 함수
+    global direction # global 함수 선언
+    direction -= 1 # 왼쪽으로 이동
+    # 0 : 북, 1 : 동, 2 : 남, 3 : 서
+    if direction == -1: # 음수가 되는 경우, 
+        direction = 3 # 3으로 초기화
+
+count = 1 # 현재 위치를 청소 했음으로 1
+turn_time = 0 # 왼쪽 방향으로 회전하는 횟수 계산, 4번인 경우 다른 조건 실행
 while True:
-    
-    left_dir = cur_dir + 1
-    
-    if left_dir > 3 : left_dir = 0
+    turn_left() # 왼쪽 방향으로 회전
+    nx = x+ dx[direction] # 현재 방향으로 이동
+    ny = y+ dy[direction] # 현재 방향으로 이동
 
-    nr = r + dir_list[left_dir][0]
-    nc = c + dir_list[left_dir][1]
+    if d[nx][ny] == 0 and array[nx][ny] == 0: # 이동을 했는데, 방문하지 않았거나, 빈 공간인 경우
+        d[nx][ny] = 1 # 이동한 위치에서 청소, 0->1
+        x = nx # 위치 이동
+        y = ny # 위치 이동
+        count += 1 # 청소를 했음으로 1 증가
+        turn_time = 0 # 왼쪽 방향 회전 횟수 0으로 초기화
+        continue # 반복
 
-    if board[nr][nc] == 0:
-        board[nr][nc] = 2
-        cur_dir = left_dir
-        cnt += 1
-        r,c = nr,nc
-    else:
-        f_cnt = 0
-        # 네 방향 확인
-        for idx, direction in dir_list.items():
-            nr = r + direction[0]
-            nc = c + direction[1]
-            if board[nr][nc] == 1 or board[nr][nc] == 2:
-                f_cnt +=1
-        if f_cnt == 4:
-            nr = r - dir_list[cur_dir][0]
-            nc = c - dir_list[cur_dir][1]
-            if board[nr][nc] == 2:
-                r,c = nr,nc
-                f_cnt = 0
-            else:
-                break
-print(cnt)
+    else: # 이동이 불가능 한 경우 왼쪽 방향 회전, 횟수 증가
+        turn_time += 1
+
+    if turn_time == 4: # 총 4번 회전 한 경우, 네 방향 모두 청소가 되어 있거나 벽이 있는 경우
+        nx = x-dx[direction] # 바라보는 방향에서 뒤로 이동
+        ny = y-dy[direction] # 바라보는 방향에서 뒤로 이동
+
+        if array[nx][ny] == 0: 
+            x = nx # 이동
+            y = ny # 이동
+
+        else: # 그렇지 않으면,
+            break # 작동을 멈춤
+        turn_time = 0 # 왼쪽 방향 회전 횟수 초기화
+
+print(count) # count 값 출력

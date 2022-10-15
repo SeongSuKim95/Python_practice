@@ -1,5 +1,5 @@
 from itertools import combinations
-import sys; inpuy = sys.stdin.readline
+import sys; input = sys.stdin.readline
 
 N,M = map(int,input().split())
 
@@ -58,7 +58,6 @@ def dfs(i,j,sum,cnt):
 #             else :
 #                 break
 #         maxvalue = max(maxvalue,temp)    
-
 
 for i in range(N):
     for j in range(M):
