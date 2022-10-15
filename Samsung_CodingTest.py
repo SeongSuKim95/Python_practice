@@ -370,3 +370,26 @@ def gravity(map):
                         break
     return map
 print(gravity(a))
+
+
+def dfs(x, y, dep, cnt, visit):
+
+    global max_eat, shark, eat
+
+    if dep == 3:
+        if max_eat < cnt:
+            max_eat = cnt
+            shark = (x,y)
+            eat = visit[:] # 먹은 물고기들의 좌표
+        return
+    
+    for d in range(4):
+        nx = x + dx[d]
+        ny = y + dy[d]
+        if 0<= nx < 4 and 0<=ny <4 :
+            if (nx,ny) not in visit:
+                visit.append((nx,ny)) # 맵을 back -tracking할때는 이런식으로 방문한 좌표만 넣어주는 형식을 쓰자.
+                dfs(nx,ny,dep+1,cnt + len(temp[nx][ny]),visit) # len(temp[nx][ny]) 물고기 개수를 참조만!
+                visit.pop() # back - tracking
+            else:
+                dfs(nx,ny,dep+1,cnt,visit) #방문한 곳이면 depth 만 늘리기

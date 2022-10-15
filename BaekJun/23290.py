@@ -1,92 +1,91 @@
-
-
 import copy
+
+M, S = map(int,input().split())
+
+fish = [list(map(int,input().split())) for _ in range(M)]
+
+fdlist = [[0,-1],[-1,-1],[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1]]
+sdlist = [[-1,0],[0,-1],[1,0],[0,1]]
+
+_map = [[[] for _ in range(4)] for _ in range(4)]
+_smell = [[0] *4 for _ in range(4)]
+
+for fx,fy,fd in fish:
+    _map[fx-1][fy-1].append(fd-1)
+
+
+shark = tuple(map(lambda x: int(x)-1,input().split()))
+
 
 def move_fish():
     res = [[[] for _ in range(4)] for _ in range(4)]
 
     for row in range(4):
         for col in range(4):
-            while temp[row][col]:
-                cur_d = temp[row][col].pop()
-                for i in range(cur_d,cur_d-8,-1): # 반시계 방향
+            while _temp[row][col]:
+                f = _temp[row][col].pop()
+                for i in range(f,f-8,-1):
                     i %= 8
-                    nrow, ncol = row + f_dx[i], col + f_dy[i]
-                    if 0<= nrow < 4 and 0<= ncol <4 and (nrow,ncol) != shark and not smell[nrow][ncol]:
+                    nrow, ncol = row + fdlist[i][0], col + fdlist[i][1]
+                    if 0<= nrow < 4 and 0<= ncol <4 and (nrow,ncol) != shark and _smell[nrow][ncol] == 0:
                         res[nrow][ncol].append(i)
                         break
                 else:
-                    res[row][col].append(cur_d)
+                    res[row][col].append(f)
     return res
 
-def dfs(x, y, dep, cnt, visit):
+def dfs(x,y,depth,cnt,visit):
 
-    global max_eat, shark, eat
+    global eat, shark, max_eat
 
-    if dep == 3:
-        if max_eat < cnt:
+    if depth == 3:
+        if max_eat < cnt :
             max_eat = cnt
             shark = (x,y)
             eat = visit[:]
         return
-    
-    for d in range(4):
-        nx = x + dx[d]
-        ny = y + dy[d]
-        if 0<= nx < 4 and 0<=ny <4 :
+    else:
+        for dir in sdlist:
+            nx,ny = x + dir[0], y + dir[1]
+            if nx<0 or  nx>=4 or ny<0 or ny>=4:
+                continue
             if (nx,ny) not in visit:
                 visit.append((nx,ny))
-                dfs(nx,ny,dep+1,cnt + len(temp[nx][ny]),visit)
-                visit.pop() # back - tracking
+                dfs(nx,ny,depth+1,cnt+len(_temp[nx][ny]),visit)
+                visit.pop()
             else:
-                dfs(nx,ny,dep+1,cnt,visit)
-f_dx = [0,-1,-1,-1,0,1,1,1]
-f_dy = [-1,-1,0,1,1,1,0,-1]
-dx = [-1,0,1,0]
-dy = [0,-1,0,1]
+                dfs(nx,ny,depth+1,cnt,visit)
 
-M,S = map(int,input().split())
-fish =  [list(map(int,input().split())) for _ in range(M)]
-_map = [[[] for _ in range(4)] for _ in range(4)] # fish 맵과 smell 맵을 따로 
-# fish 맵의 element를 빈리스트로 쓰기
 
-for x,y,d in fish:
-    _map[x-1][y-1].append(d-1)
-
-shark = tuple(map(lambda x: int(x)-1, input().split())) # 상어 좌표
-smell = [[0] * 4 for _ in range(4)]
 
 for _ in range(S):
+
     eat = []
-    test = list()
+    visited = []
     max_eat = -1
-    # 1. 모든 물고기 복제하기
-    temp = copy.deepcopy(_map)
-    # 2. 물고기 이동
-    temp = move_fish()
-    # 3. 상어 이동
-    dfs(shark[0],shark[1],0,0,list())
 
-    for x,y in eat: # 지나온 좌표들
-        if temp[x][y] :
-            temp[x][y] = [] # 물고기 제거
-            smell[x][y] = 3 # 3번 돌아야 없어짐
-    # 4. 냄새 사라짐 (아까 생성된 냄새를 2로 만들어줌과 동시에, 기존의 냄새 map에서 1씩 빼기)
+    _temp = copy.deepcopy(_map)
 
+    _temp = move_fish()
+
+    dfs(shark[0],shark[1],0,0,visited) # depth, cnt
+
+    for x,y in eat:
+        if _temp[x][y]:
+            _temp[x][y] = []
+            _smell[x][y] = 3
     for i in range(4):
         for j in range(4):
-            if smell[i][j] :
-                smell[i][j] -= 1
+            if _smell[i][j]:
+                _smell[i][j] -= 1
     
-    # 5 . 복제된 물고기
     for i in range(4):
         for j in range(4):
-            _map[i][j] += temp[i][j] # 바뀐 물고기를 더한다
-
+            _map[i][j] += _temp[i][j]
 answer = 0
+
 for i in range(4):
     for j in range(4):
-        answer += len(_map[i][j])
-
+        answer+=len(_map[i][j])
 
 print(answer)

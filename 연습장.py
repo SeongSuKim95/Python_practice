@@ -173,7 +173,7 @@ import copy
 # 	for virus in virus_list:
 # 		q.append(virus)
 
-# 	tmp = bfs(q, blank_cnt) #BFS 수행 # 빈칸 개수를 미리 센다
+# 	tmp = bfs(q, blank_cnt) #= 수행 # 빈칸 개수를 미리 센다
 # 	res = min(res, tmp)
 
 # if res == INF: # 옵션 2. 바이러스를 어떻게 놓아도 전체에 퍼뜨릴 수 없는 경우
@@ -844,7 +844,7 @@ def move_fish():
 
     for row in range(4):
         for col in range(4):
-            while temp[row][col]:
+            while temp[row][col]: # row,col에 있는 모든 물고기에 대해
                 cur_d = temp[row][col].pop()
                 for i in range(cur_d,cur_d-8,-1): # 반시계 방향
                     i %= 8
@@ -864,7 +864,7 @@ def dfs(x, y, dep, cnt, visit):
         if max_eat < cnt:
             max_eat = cnt
             shark = (x,y)
-            eat = visit[:]
+            eat = visit[:] # 먹은 물고기들의 좌표
         return
     
     for d in range(4):
@@ -872,18 +872,19 @@ def dfs(x, y, dep, cnt, visit):
         ny = y + dy[d]
         if 0<= nx < 4 and 0<=ny <4 :
             if (nx,ny) not in visit:
-                visit.append((nx,ny))
-                dfs(nx,ny,dep+1,cnt + len(temp[nx][ny]),visit)
+                visit.append((nx,ny)) # 맵을 back -tracking할때는 이런식으로 방문한 좌표만 넣어주는 형식을 쓰자.
+                dfs(nx,ny,dep+1,cnt + len(temp[nx][ny]),visit) # len(temp[nx][ny]) 물고기 개수를 참조만!
                 visit.pop() # back - tracking
             else:
-                dfs(nx,ny,dep+1,cnt,visit)
+                dfs(nx,ny,dep+1,cnt,visit) #방문한 곳이면 depth 만 늘리기
+
 f_dx = [0,-1,-1,-1,0,1,1,1]
 f_dy = [-1,-1,0,1,1,1,0,-1]
 dx = [-1,0,1,0]
 dy = [0,-1,0,1]
 
 M,S = map(int,input().split())
-fish =  [list(map(int,input().split())) for _ in range(M)]
+fish = [list(map(int,input().split())) for _ in range(M)]
 _map = [[[] for _ in range(4)] for _ in range(4)] # fish 맵과 smell 맵을 따로 
 # fish 맵의 element를 빈리스트로 쓰기
 
@@ -895,14 +896,13 @@ smell = [[0] * 4 for _ in range(4)]
 
 for _ in range(S):
     eat = []
-    test = list()
     max_eat = -1
     # 1. 모든 물고기 복제하기
     temp = copy.deepcopy(_map)
     # 2. 물고기 이동
     temp = move_fish()
     # 3. 상어 이동
-    dfs(shark[0],shark[1],0,0,list())
+    dfs(shark[0],shark[1],0,0,list()) # depth, count, visit
 
     for x,y in eat: # 지나온 좌표들
         if temp[x][y] :
@@ -927,3 +927,4 @@ for i in range(4):
 
 
 print(answer)
+
