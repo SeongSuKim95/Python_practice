@@ -38,6 +38,23 @@ def rot90c(map):
 
     return nmap
 
+
+def move_fish():
+    res = [[[] for _ in range(4)] for _ in range(4)]
+
+    for row in range(4):
+        for col in range(4):
+            while _temp[row][col]:
+                f = _temp[row][col].pop()
+                for i in range(f,f-8,-1):
+                    i %= 8
+                    nrow, ncol = row + fdlist[i][0], col + fdlist[i][1]
+                    if 0<= nrow < 4 and 0<= ncol <4 and (nrow,ncol) != shark and _smell[nrow][ncol] == 0:
+                        res[nrow][ncol].append(i)
+                        break
+                else:
+                    res[row][col].append(f)
+    return res
 # for row in _map:
 #     print(row)
 # for row in rot90cc(_map):
