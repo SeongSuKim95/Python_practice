@@ -97,7 +97,6 @@ def solution(numbers):
     
     return str(int(''.join(numbers_str)))
 
-
 # collections counter deque https://kingofbackend.tistory.com/97
 # 배열 원소 곱 구하기 : https://shoark7.github.io/programming/algorithm/3ways-to-get-multiplication-in-a-list-in-python
 # 람다 표현식 : https://codermun-log.tistory.com/66
