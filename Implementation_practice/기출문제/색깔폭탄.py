@@ -14,21 +14,21 @@ EMPTY = -2
 
 # 중력
 
-# grid = [
-#     list(map(int,input().split()))
-#     for _ in range(n)
-# ]
-
-n,m = 6,2
 grid = [
-    [0,-1,2,2,1,1],
-    [0,0,2,2,1,1],
-    [-1,1,1,1,1,1],
-    [0,0,0,0,2,2],
-    [1,2,-1,1,-1,1],
-    [2,1,-1,0,2,0]
-    
+    list(map(int,input().split()))
+    for _ in range(n)
 ]
+
+# n,m = 6,2
+# grid = [
+#     [0,-1,2,2,1,1],
+#     [0,0,2,2,1,1],
+#     [-1,1,1,1,1,1],
+#     [0,0,0,0,2,2],
+#     [1,2,-1,1,-1,1],
+#     [2,1,-1,0,2,0]
+    
+# ]
 
 score = 0
 
@@ -44,7 +44,6 @@ def group_bomb():
     groups = []
     red_cnts = []
     bomb_cnts = []
-    print("####################")
     for i in range(n):
         for j in range(n):
             if grid[i][j] != ROCK and not visited[i][j] and grid[i][j] != RED and grid[i][j] != EMPTY:
