@@ -47,7 +47,7 @@ def bisect(sorted,start,end,M):
 def lower_bound(target):
     left = 0                             # 첫 번째 원소의 위치로 설정합니다.
     right = n - 1                        # 마지막 원소의 위치로 설정합니다.
-    # min_idx = n                          # 최소이므로, 답이 될 수 있는 값보다 더 큰 값으로 설정합니다.
+    min_idx = n                         # 최소이므로, 답이 될 수 있는 값보다 더 큰 값으로 설정합니다.
 
     while left <= right:                 # [left, right]가 유효한 구간이면 계속 수행합니다.
         mid = (left + right) // 2        # 가운데 위치를 선택합니다.
@@ -88,3 +88,16 @@ def custom_bound(target):
             right = mid - 1              # 값이 더 큰 경우라면 right를 바꿔줍니다.
     
     return max_idx                       # 조건을 만족하는 최대 index 값을 반환합니다.
+
+def upper_bound(target):
+    
+    left,right = 0, len(arr)-1
+    min_idx = n
+    while left <= right :
+        mid = (left+right)//2
+        
+        if arr[mid] > target :
+            min_mid = min(min_mid,mid)
+            right = mid - 1
+        else :
+            left = mid + 1

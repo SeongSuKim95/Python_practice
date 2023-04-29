@@ -8,6 +8,7 @@ graph = [[] for _ in range(N+1)]
 node_depth = [0 for _ in range(N+1)]
 visited = [False for _ in range(N+1)]
 parent = [0] * (N+1) # 여기서의 parent는 바로 윗 노드를 의미
+# 양방향 그래프
 
 for _ in range(N-1):
     a,b = map(int,input().split())
